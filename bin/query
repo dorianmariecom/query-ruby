@@ -1,0 +1,38 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require_relative "../lib/query-ruby"
+require "dorian/arguments"
+
+parsed =
+  Dorian::Arguments.parse(
+    input: {
+      type: :string,
+      alias: :i
+    },
+    parse: {
+      type: :boolean,
+      alias: :p
+    },
+    version: {
+      type: :boolean,
+      alias: :v
+    },
+    help: {
+      type: :boolean,
+      alias: :h
+    }
+  )
+
+abort Query::Version.to_s if parsed.options.version
+abort parsed.help if parsed.options.help
+
+input = parsed.options.input.to_s
+input += parsed.arguments.join(" ")
+input += parsed.files.map { |file| File.read(file) }.join
+
+if parsed.options.parse
+  pp Query::Parser.parse(input).to_raw
+else
+  puts JSON.pretty_generate(Query.evaluate(input))
+end
