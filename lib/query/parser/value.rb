@@ -4,7 +4,7 @@ class Query
   class Parser
     class Value < Language
       def root
-        KeyValue | Boolean | Number | String | Range
+        Range | KeyValue | Boolean | Number | String
       end
     end
   end

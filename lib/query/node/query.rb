@@ -10,7 +10,7 @@ class Query
       end
 
       def evaluate(**args)
-        parts
+        parts.map { |part| part.evaluate(**args) }
       end
     end
   end

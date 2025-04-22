@@ -8,7 +8,7 @@ class Query
       end
 
       def root
-        (whitespace? << Part << whitespace?).repeat
+        whitespace? << (Part << Whitespace).repeat | any.repeat | whitespace?
       end
     end
   end

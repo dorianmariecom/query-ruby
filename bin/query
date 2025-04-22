@@ -34,5 +34,5 @@ input += parsed.files.map { |file| File.read(file) }.join
 if parsed.options.parse
   pp Query::Parser.parse(input).to_raw
 else
-  puts JSON.pretty_generate(Query.evaluate(input))
+  pp Query.evaluate(input)
 end

@@ -1,0 +1,57 @@
+require "spec_helper"
+
+RSpec.describe Query do
+  [
+    "",
+    " ",
+    " \n",
+    "\n",
+    "      ",
+    "     \n    ",
+    "       \n",
+    " \r",
+    "\r",
+    "      ",
+    "     \r    ",
+    "       \r",
+    "    \r\n  ",
+    "from:me",
+    "to:me",
+    "from:me to:me",
+    "age>30",
+    "age>=30",
+    "age<30",
+    "age<=30",
+    "age:1",
+    "age:1.0",
+    "age:1.10",
+    "age:01",
+    "age:01.1",
+    "age:01.10",
+    "age:01.10",
+    "age:0b110",
+    "age:0x690",
+    "age:0o690",
+    "age:0B110",
+    "age:0X690",
+    "age:0O690",
+    "user:given_name:dorian",
+    "user:dorian",
+    "age:20..30",
+    "age:20...30",
+    "age:32.1",
+    "age:32.1..32.9",
+    "verified:true",
+    "verified:t",
+    "verified:on",
+    "verified:yes",
+    "verified:false",
+    "verified:f",
+    "verified:off",
+    "verified:no",
+  ].each do |source|
+    it source.inspect do
+      Query.evaluate(source)
+    end
+  end
+end

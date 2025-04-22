@@ -4,7 +4,7 @@ class Query
   class Parser
     class Key < Language
       def root
-        (Whitespace.absent << Operator.absent << any).repeat(1)
+        str("_").absent << (Whitespace.absent << Operator.absent << any).repeat(1)
       end
     end
   end

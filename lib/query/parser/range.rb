@@ -11,21 +11,21 @@ class Query
         Whitespace.maybe
       end
 
-      def value
-        Boolean.aka(:boolean) |
-          Number.aka(:number) |
-          String.aka(:string)
+      def special
+        str("...") | str("..") | Whitespace | Operator
       end
 
       def root
         (
-          value.aka(:first) << (
-            whitespace? << operator.aka(:operator) <<
-            whitespace? << value.aka(:value)
-          ).repeat(1).aka(:others).maybe
-        ).aka(:range).then do |output|
-          output[:range][:others] ? output : output[:range][:first]
-        end
+          (
+            (
+              Number.aka(:left) << operator.aka(:operator) << Number.aka(:right)
+            ) |
+            (
+              String.aka(:left) << operator.aka(:operator) << String.aka(:right)
+            )
+          ) << special.present
+        ).aka(:range)
       end
     end
   end
