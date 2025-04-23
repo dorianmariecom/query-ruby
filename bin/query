@@ -14,6 +14,14 @@ parsed =
       type: :boolean,
       alias: :p
     },
+    decompile: {
+      type: :boolean,
+      alias: :d
+    },
+    combine: {
+      type: :boolean,
+      alias: :c
+    },
     version: {
       type: :boolean,
       alias: :v
@@ -27,12 +35,18 @@ parsed =
 abort Query::Version.to_s if parsed.options.version
 abort parsed.help if parsed.options.help
 
-input = parsed.options.input.to_s
-input += parsed.arguments.join(" ")
-input += parsed.files.map { |file| File.read(file) }.join
+inputs = [parsed.options.input.to_s]
+inputs += parsed.arguments
+inputs += parsed.files.map { |file| File.read(file) }
+
+input = inputs.join(" ")
 
 if parsed.options.parse
   pp Query::Parser.parse(input).to_raw
+elsif parsed.options.decompile
+  puts Query.decompile(Query.evaluate(input))
+elsif parsed.options.combine
+  puts Query.combine(*inputs)
 else
   pp Query.evaluate(input)
 end

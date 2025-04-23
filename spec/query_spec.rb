@@ -15,6 +15,10 @@ RSpec.describe Query do
     "     \r    ",
     "       \r",
     "    \r\n  ",
+    "    hello  ",
+    "    hello  world",
+    "    'hello world'  \r\n",
+    ' "hello world"    ',
     "from:me",
     "to:me",
     "from:me to:me",
@@ -36,6 +40,10 @@ RSpec.describe Query do
     "age:0X690",
     "age:0O690",
     "user:given_name:dorian",
+    "user:family_name:Marié",
+    'user:name:"Dorian Marié"',
+    "program:user:name:dorian",
+    "user:given_name:dorian",
     "user:dorian",
     "age:20..30",
     "age:20...30",
@@ -52,6 +60,14 @@ RSpec.describe Query do
   ].each do |source|
     it source.inspect do
       Query.evaluate(source)
+    end
+
+    it "decompiles #{source.inspect}" do
+      expect(
+        Query.evaluate(Query.decompile(Query.evaluate(source)))
+      ).to eq(
+        Query.evaluate(source)
+      )
     end
   end
 end

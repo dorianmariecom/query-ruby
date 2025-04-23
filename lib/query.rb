@@ -11,6 +11,14 @@ class Query
     Parser.parse(source).to_raw
   end
 
+  def self.decompile(parsed)
+    Decompiler.decompile(parsed)
+  end
+
+  def self.combine(*sources)
+    Combiner.combine(*sources)
+  end
+
   def self.evaluate(...)
     new(...).evaluate
   end

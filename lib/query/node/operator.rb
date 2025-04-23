@@ -5,12 +5,30 @@ class Query
     class Operator < Node
       attr_accessor :operator
 
+      OPERATORS = {
+        "^" => "^",
+        "$" => "$",
+        ">=" => ">=",
+        "=>" => ">=",
+        "<=" => "<=",
+        "=<" => "<=",
+        "<" => "<",
+        ">" => ">",
+        "!" => "!",
+        ":::" => ":",
+        "::" => ":",
+        ":" => ":",
+        "=" => "=",
+        "==" => "=",
+        "===" => "=",
+      }
+
       def initialize(parsed)
         self.operator = parsed
       end
 
       def evaluate(**args)
-        operator
+        OPERATORS.fetch(operator)
       end
     end
   end
