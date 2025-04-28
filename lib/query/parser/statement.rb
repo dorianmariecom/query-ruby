@@ -6,7 +6,7 @@ class Query
       def root
         (
           Whitespace.maybe << NotOperator.aka(:not) << Whitespace.maybe
-        ).maybe << (Group | KeyValue | String | Text)
+        ).maybe << (Group | KeyValue | String)
       end
     end
   end

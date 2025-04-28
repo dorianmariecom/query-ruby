@@ -5,7 +5,7 @@ class Query
     class Special < Language
       def root
         str("&") | str("|") | str("(") | str(")") | str("...") | str("..") |
-          Whitespace | Operator
+          Whitespace
       end
     end
   end
