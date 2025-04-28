@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    query-ruby (0.1.0)
+    query-ruby (1.0.0)
       activesupport
       bigdecimal
       dorian-arguments
