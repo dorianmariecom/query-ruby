@@ -4,7 +4,9 @@ class Query
   class Parser
     class Statement < Language
       def root
-        (Whitespace.maybe << NotOperator.aka(:not) << Whitespace.maybe).maybe << (Group | KeyValue | String)
+        (
+          Whitespace.maybe << NotOperator.aka(:not) << Whitespace.maybe
+        ).maybe << (Group | KeyValue | String | Text)
       end
     end
   end

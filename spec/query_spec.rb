@@ -61,7 +61,7 @@ RSpec.describe Query do
     "a or b",
     "a:1 or b",
     "a:1 or b:2..3",
-    "(a or b) and (not b ! c)",
+    "(a or b) and (not b ! c)"
   ].each do |source|
     it source.inspect do
       Query.evaluate(source)
