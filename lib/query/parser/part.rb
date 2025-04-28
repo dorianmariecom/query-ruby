@@ -4,7 +4,10 @@ class Query
   class Parser
     class Part < Language
       def root
-        KeyValue | Text
+        (
+          Statement.aka(:left) << LogicOperator.aka(:operator) <<
+            Part.aka(:right)
+        ) | Statement
       end
     end
   end

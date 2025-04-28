@@ -11,13 +11,10 @@ class Query
     end
 
     def combine
-      sources.map do |source|
-        Query.evaluate(source)
-      end.reduce do |acc, element|
-        combine_parsed(acc, element)
-      end.then do |parsed|
-        Query.decompile(parsed)
-      end
+      sources
+        .map { |source| Query.evaluate(source) }
+        .reduce { |acc, element| combine_parsed(acc, element) }
+        .then { |parsed| Query.decompile(parsed) }
     end
 
     private
@@ -25,9 +22,10 @@ class Query
     attr_accessor :sources
 
     def combine_parsed(left, right)
-      (left + right).reverse.uniq do |node|
-        node.is_a?(Hash) ? [node[:key], node[:operator]] : node
-      end.reverse
+      (left + right)
+        .reverse
+        .uniq { |node| node.is_a?(Hash) ? [node[:key], node[:operator]] : node }
+        .reverse
     end
   end
 end

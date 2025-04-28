@@ -15,7 +15,7 @@ class Query
 
       def evaluate(**args)
         if exponent
-          BigDecimal(decimal) * 10 ** exponent.evaluate(**args)
+          BigDecimal(decimal) * 10**exponent.evaluate(**args)
         else
           BigDecimal(decimal)
         end

@@ -11,17 +11,33 @@ class Query
     end
 
     def decompile
-      parsed.map { |node| format_value(node) }.join(" ")
+      if parsed.is_a?(Hash) && parsed.key?(:left)
+        format_logic_operator(parsed)
+      elsif parsed.is_a?(Hash) && parsed.key?(:right)
+        format_not_operator(parsed)
+      else
+        format_value(parsed)
+      end
     end
 
-    def format_string(string)
+    def format_logic_operator(parsed)
+      left = self.class.decompile(parsed[:left])
+      right = self.class.decompile(parsed[:right])
+
+      "(#{left} #{parsed[:operator]} #{right})"
+    end
+
+    def format_not_operator(parsed)
+      right = self.class.decompile(parsed[:right])
+
+      "(#{parsed[:operator]} #{right})"
     end
 
     def format_value(value)
       if value.is_a?(Hash)
         "#{value[:key]}#{value[:operator]}#{format_value(value[:value])}"
       elsif value.is_a?(String)
-        Query.evaluate(value).many? ? value.inspect : value
+        Query.evaluate(value).is_a?(Hash) ? value.inspect : value
       elsif value.is_a?(BigDecimal)
         value.to_s("F")
       elsif value.is_a?(Range)

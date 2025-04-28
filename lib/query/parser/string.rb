@@ -15,10 +15,6 @@ class Query
         str("\\")
       end
 
-      def special
-        str("...") | str("..") | Whitespace | Operator
-      end
-
       def double_quoted_string
         double_quote.ignore << (
           (backslash.ignore << double_quote) | (double_quote.absent << any)
@@ -35,8 +31,8 @@ class Query
         (
           (
             double_quoted_string | single_quoted_string |
-              (special.absent << any).repeat(1)
-          ) << special.present
+              (Special.absent << any).repeat(1)
+          ) << Special.present
         ).aka(:string)
       end
     end

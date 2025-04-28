@@ -3,12 +3,8 @@
 class Query
   class Parser
     class Query < Language
-      def whitespace?
-        Whitespace.maybe
-      end
-
       def root
-        whitespace? << (Part << Whitespace).repeat | any.repeat | whitespace?
+        Whitespace.maybe << Part.maybe << Whitespace.maybe
       end
     end
   end

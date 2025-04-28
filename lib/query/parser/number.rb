@@ -3,10 +3,6 @@
 class Query
   class Parser
     class Number < Language
-      def special
-        str("...") | str("..") | Whitespace | Operator
-      end
-
       def zero
         str("0")
       end
@@ -150,7 +146,7 @@ class Query
             decimal.aka(:decimal) | base_16_number.aka(:base_16) |
               base_8_number.aka(:base_8) | base_2_number.aka(:base_2) |
               base_10_number.aka(:base_10)
-          ) << special.present
+          ) << Special.present
         ).aka(:number)
       end
     end

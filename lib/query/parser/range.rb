@@ -11,20 +11,17 @@ class Query
         Whitespace.maybe
       end
 
-      def special
-        str("...") | str("..") | Whitespace | Operator
-      end
-
       def root
         (
           (
             (
               Number.aka(:left) << operator.aka(:operator) << Number.aka(:right)
             ) |
-            (
-              String.aka(:left) << operator.aka(:operator) << String.aka(:right)
-            )
-          ) << special.present
+              (
+                String.aka(:left) << operator.aka(:operator) <<
+                  String.aka(:right)
+              )
+          ) << Special.present
         ).aka(:range)
       end
     end

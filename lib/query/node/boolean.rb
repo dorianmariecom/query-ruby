@@ -31,7 +31,7 @@ class Query
         "N" => false,
         "off" => false,
         "Off" => false,
-        "OFF" => false,
+        "OFF" => false
       }
 
       def initialize(parsed)

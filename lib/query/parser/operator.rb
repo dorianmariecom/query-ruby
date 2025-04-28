@@ -3,48 +3,35 @@
 class Query
   class Parser
     class Operator < Language
-      PREFIXES = [
-        "-",
-        "+",
-        "!",
-        ""
-      ]
+      PREFIXES = %w[- + !]
 
-      OPERATORS = [
-        "^",
-        "$",
-        ">=",
-        "=>",
-        "<=",
-        "=<",
-        "<",
-        ">",
-        "!"
-      ]
+      OPERATORS = %w[^ $ >= => <= =< < > !]
 
-      MODIFIERS = [
-        ":::",
-        "::",
-        ":",
-        "===",
-        "==",
-        "=",
-        "",
-      ]
+      MODIFIERS = [":::", "::", ":", "===", "==", "=", ""]
 
       def root
-        PREFIXES.map { |prefix| str(prefix) }.reduce(&:|).aka(:prefix) <<
         (
-          OPERATORS.flat_map do |operator|
-            MODIFIERS.map do |modifier|
-              str("#{operator}#{modifier}") |
-                str("#{modifier}#{operator}") |
-                str(operator)
-            end.reduce(&:|).then { operator }
-          end.reduce(&:|) |
-            MODIFIERS.compact_blank.map do |modifier|
-              str(modifier)
-            end.reduce(&:|)
+          PREFIXES
+            .map { |prefix| str(prefix) }
+            .reduce(&:|)
+            .aka(:prefix)
+            .maybe << (
+            OPERATORS
+              .flat_map do |operator|
+                MODIFIERS
+                  .map do |modifier|
+                    str("#{operator}#{modifier}") |
+                      str("#{modifier}#{operator}") | str(operator)
+                  end
+                  .reduce(&:|)
+                  .then { operator }
+              end
+              .reduce(&:|) |
+              MODIFIERS
+                .compact_blank
+                .map { |modifier| str(modifier) }
+                .reduce(&:|)
+          ).aka(:suffix)
         ).aka(:operator)
       end
     end

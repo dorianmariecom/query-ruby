@@ -57,15 +57,18 @@ RSpec.describe Query do
     "verified:f",
     "verified:off",
     "verified:no",
+    "a b",
+    "a or b",
+    "a:1 or b",
+    "a:1 or b:2..3",
+    "(a or b) and (not b ! c)",
   ].each do |source|
     it source.inspect do
       Query.evaluate(source)
     end
 
     it "decompiles #{source.inspect}" do
-      expect(
-        Query.evaluate(Query.decompile(Query.evaluate(source)))
-      ).to eq(
+      expect(Query.evaluate(Query.decompile(Query.evaluate(source)))).to eq(
         Query.evaluate(source)
       )
     end
