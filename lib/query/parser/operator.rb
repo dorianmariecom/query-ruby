@@ -18,13 +18,14 @@ class Query
             .maybe << (
             OPERATORS
               .flat_map do |operator|
-                MODIFIERS
-                  .map do |modifier|
-                    str("#{operator}#{modifier}") |
-                      str("#{modifier}#{operator}") | str(operator)
-                  end
-                  .reduce(&:|)
-                  .then { operator }
+                (
+                  MODIFIERS
+                    .map do |modifier|
+                      str("#{operator}#{modifier}") |
+                        str("#{modifier}#{operator}")
+                    end
+                    .reduce(&:|) | str(operator)
+                ).then { operator }
               end
               .reduce(&:|) |
               MODIFIERS
