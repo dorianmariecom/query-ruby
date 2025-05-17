@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "../code"
+require_relative "../query"
 
-Code::Version =
+Query::Version =
   Gem::Version.new(File.read(File.expand_path("../../VERSION", __dir__)))
