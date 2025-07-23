@@ -9,7 +9,7 @@ class Query
         self.string = parsed
       end
 
-      def evaluate(**args)
+      def evaluate(**_args)
         string.to_s
       end
     end

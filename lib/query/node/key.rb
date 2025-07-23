@@ -9,7 +9,7 @@ class Query
         self.key = parsed.presence
       end
 
-      def evaluate(**args)
+      def evaluate(**_args)
         key.to_sym
       end
     end

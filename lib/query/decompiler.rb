@@ -34,13 +34,14 @@ class Query
     end
 
     def format_value(value)
-      if value.is_a?(Hash)
+      case value
+      when Hash
         "#{value[:key]}#{value[:operator]}#{format_value(value[:value])}"
-      elsif value.is_a?(String)
+      when String
         Query.evaluate(value).is_a?(Hash) ? value.inspect : value
-      elsif value.is_a?(BigDecimal)
+      when BigDecimal
         value.to_s("F")
-      elsif value.is_a?(Range)
+      when Range
         left = value.first
         right = value.last
         operator = value.exclude_end? ? "..." : ".."
