@@ -18,14 +18,14 @@ class Query
         "&" => "and",
         "" => "and",
         nil => "and"
-      }
+      }.freeze
 
       NEGATIVE_OPERATORS = {
         "not" => "not",
         "Not" => "not",
         "NOT" => "not",
         "!" => "not"
-      }
+      }.freeze
 
       def initialize(parsed)
         self.negative = (parsed.presence || {}).delete(:not)

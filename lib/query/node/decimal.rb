@@ -8,14 +8,14 @@ class Query
       def initialize(parsed)
         self.decimal = parsed.delete(:decimal)
 
-        if parsed.key?(:exponent)
-          self.exponent = Value.new(parsed.delete(:exponent))
-        end
+        return unless parsed.key?(:exponent)
+
+        self.exponent = Value.new(parsed.delete(:exponent))
       end
 
       def evaluate(**args)
         if exponent
-          BigDecimal(decimal) * 10**exponent.evaluate(**args)
+          BigDecimal(decimal) * (10**exponent.evaluate(**args))
         else
           BigDecimal(decimal)
         end

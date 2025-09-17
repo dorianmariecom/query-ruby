@@ -5,7 +5,7 @@ class Query
     class Operator < Node
       attr_accessor :prefix, :suffix
 
-      PREFIXES = { "+" => "", "-" => "!", "!" => "!", "" => "", nil => "" }
+      PREFIXES = { "+" => "", "-" => "!", "!" => "!", "" => "", nil => "" }.freeze
 
       SUFFIXES = {
         "^" => "^",
@@ -23,14 +23,14 @@ class Query
         "=" => "=",
         "==" => "=",
         "===" => "="
-      }
+      }.freeze
 
       def initialize(parsed)
         self.prefix = parsed.delete(:prefix)
         self.suffix = parsed.delete(:suffix)
       end
 
-      def evaluate(**args)
+      def evaluate(**_args)
         "#{PREFIXES.fetch(prefix)}#{SUFFIXES.fetch(suffix)}"
       end
     end

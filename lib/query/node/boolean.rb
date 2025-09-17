@@ -32,13 +32,13 @@ class Query
         "off" => false,
         "Off" => false,
         "OFF" => false
-      }
+      }.freeze
 
       def initialize(parsed)
         self.boolean = parsed
       end
 
-      def evaluate(**args)
+      def evaluate(**_args)
         BOOLEANS.fetch(boolean)
       end
     end

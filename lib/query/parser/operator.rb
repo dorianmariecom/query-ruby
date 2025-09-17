@@ -3,11 +3,11 @@
 class Query
   class Parser
     class Operator < Language
-      PREFIXES = %w[- + !]
+      PREFIXES = %w[- + !].freeze
 
-      OPERATORS = %w[^ $ >= => <= =< < > !]
+      OPERATORS = %w[^ $ >= => <= =< < > !].freeze
 
-      MODIFIERS = [":::", "::", ":", "===", "==", "=", ""]
+      MODIFIERS = [":::", "::", ":", "===", "==", "=", ""].freeze
 
       def root
         (

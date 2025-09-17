@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "spec_helper"
 
 RSpec.describe Query do
@@ -64,12 +66,12 @@ RSpec.describe Query do
     "(a or b) and (not b ! c)"
   ].each do |source|
     it source.inspect do
-      Query.evaluate(source)
+      described_class.evaluate(source)
     end
 
     it "decompiles #{source.inspect}" do
-      expect(Query.evaluate(Query.decompile(Query.evaluate(source)))).to eq(
-        Query.evaluate(source)
+      expect(described_class.evaluate(described_class.decompile(described_class.evaluate(source)))).to eq(
+        described_class.evaluate(source)
       )
     end
   end
