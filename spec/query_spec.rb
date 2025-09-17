@@ -70,9 +70,11 @@ RSpec.describe Query do
     end
 
     it "decompiles #{source.inspect}" do
-      expect(described_class.evaluate(described_class.decompile(described_class.evaluate(source)))).to eq(
-        described_class.evaluate(source)
-      )
+      expect(
+        described_class.evaluate(
+          described_class.decompile(described_class.evaluate(source))
+        )
+      ).to eq(described_class.evaluate(source))
     end
   end
 end

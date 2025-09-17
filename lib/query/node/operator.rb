@@ -5,7 +5,13 @@ class Query
     class Operator < Node
       attr_accessor :prefix, :suffix
 
-      PREFIXES = { "+" => "", "-" => "!", "!" => "!", "" => "", nil => "" }.freeze
+      PREFIXES = {
+        "+" => "",
+        "-" => "!",
+        "!" => "!",
+        "" => "",
+        nil => ""
+      }.freeze
 
       SUFFIXES = {
         "^" => "^",

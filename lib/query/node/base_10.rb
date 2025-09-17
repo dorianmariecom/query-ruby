@@ -9,8 +9,7 @@ class Query
         self.whole = parsed.delete(:whole)
         return unless parsed.key?(:exponent)
 
-        self.exponent =
-          Node::Value.new(parsed.delete(:exponent))
+        self.exponent = Node::Value.new(parsed.delete(:exponent))
       end
 
       def evaluate(**args)
