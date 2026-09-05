@@ -13,12 +13,12 @@ Gem::Specification.new do |s|
   s.license = "MIT"
   s.executables = "query"
 
-  s.add_dependency "activesupport"
-  s.add_dependency "bigdecimal"
+  s.add_dependency "activesupport", ">= 8.1.3.1", "< 9"
+  s.add_dependency "bigdecimal", ">= 4.1.2", "< 5"
   s.add_dependency "dorian-arguments", ">= 2.0.1", "< 3"
-  s.add_dependency "json"
-  s.add_dependency "language-ruby", ">= 2.0.1", "< 3"
-  s.add_dependency "zeitwerk"
+  s.add_dependency "json", ">= 2.21.2", "< 3"
+  s.add_dependency "language-ruby", ">= 2.0.2", "< 3"
+  s.add_dependency "zeitwerk", ">= 2.8.3", "< 3"
 
   s.metadata["rubygems_mfa_required"] = "true"
 
