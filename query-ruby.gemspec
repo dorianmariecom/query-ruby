@@ -15,9 +15,9 @@ Gem::Specification.new do |s|
 
   s.add_dependency "activesupport"
   s.add_dependency "bigdecimal"
-  s.add_dependency "dorian-arguments"
+  s.add_dependency "dorian-arguments", ">= 2.0.1", "< 3"
   s.add_dependency "json"
-  s.add_dependency "language-ruby"
+  s.add_dependency "language-ruby", ">= 2.0.1", "< 3"
   s.add_dependency "zeitwerk"
 
   s.metadata["rubygems_mfa_required"] = "true"
